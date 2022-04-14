@@ -1,0 +1,22 @@
+.links {
+  gap: 20px;
+  display: inline-block;
+  padding: 10px;
+}
+
+.onelink {
+  padding: 10px;
+  color: black;
+  margin: 5px;
+  font-size: 21px;
+  text-decoration: none;
+  width: 50px;
+  display: inline-block;
+}
+.onelink:last-of-type {
+  margin-right: 20px;
+}
+
+.onelink:hover {
+  background-color: rgb(201, 188, 188);
+}
