@@ -16,6 +16,7 @@
   "rules": {
     "linebreak-style": ["off", "unix"],
     "no-console": "off",
+    "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "quotes": [2, "single", { "avoidEscape": true }],
     "jsx-quotes": [2, "prefer-single"],
