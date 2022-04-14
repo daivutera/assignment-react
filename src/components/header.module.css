@@ -2,7 +2,7 @@
   display: flex;
   justify-content: space-between;
   background-color: inherit;
-  border-bottom: 2px solid rgba(179, 126, 14, 0.2);
+  border-bottom: 12px solid rgba(247, 233, 202, 0.2);
   align-items: center;
   padding-right: 10rem;
 }
@@ -21,4 +21,5 @@ img {
 .pageName {
   margin-left: 10px;
   color: rgb(97, 94, 94);
+  font-weight: 300;
 }

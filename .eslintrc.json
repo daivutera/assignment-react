@@ -21,14 +21,7 @@
     "jsx-quotes": [2, "prefer-single"],
     "no-use-before-define": ["error", { "functions": false, "classes": true }],
     "comma-dangle": ["error", { "functions": "ignore" }]
-    // "react/jsx-props-no-spreading": [
-    //   "enabled",
-    //   {
-    //     "html": "ignore",
-    //     "custom": "ignore",
-    //     "explicitSpread": "ignore"
-    //   }
-    // ]
+
     // "react/prop-types": "off"
     // "react/destructuring-assignment": ["enabled", "never"]
   }

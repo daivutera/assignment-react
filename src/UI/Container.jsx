@@ -7,7 +7,7 @@ function Container(props) {
     children: PropTypes.node.isRequired,
     className: PropTypes.node.isRequired,
   };
-  return <div className={`container ${className}`}>{children}</div>;
+  return <div className={className}>{children}</div>;
 }
 
 export default Container;

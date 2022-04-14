@@ -9,17 +9,19 @@ function NavLink() {
 
   return (
     <div className={css.links}>
-      <Link className={css.onelink} to='/'>
-        Home
-      </Link>
-      {!authCtxValue.isLoggedIn && (
-        <Link className={css.onelink} to='/register'>
-          Register
-        </Link>
-      )}
       {!authCtxValue.isLoggedIn && (
         <Link className={css.onelink} to='/login'>
           Login
+        </Link>
+      )}
+      {authCtxValue.isLoggedIn && (
+        <Link className={css.onelink} to='/home'>
+          Home
+        </Link>
+      )}
+      {!authCtxValue.isLoggedIn && (
+        <Link className={css.onelink} to='/register'>
+          Register
         </Link>
       )}
       {authCtxValue.isLoggedIn && (

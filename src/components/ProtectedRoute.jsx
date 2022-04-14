@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable comma-dangle */
-import { Route, useContext } from 'react-router-dom';
-import AuthContext from '../store/authContext';
-import { NotLoggedIn } from './NotLoggedIn';
+import { Route } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import { useContext } from 'react';
+import AuthContext from '../store/authContext';
+import NotLoggedIn from './NotLoggedIn';
 
 function ProtectedRoute({ children, ...rest }) {
   ProtectedRoute.propTypes = {
@@ -11,9 +13,7 @@ function ProtectedRoute({ children, ...rest }) {
   };
   const authCtx = useContext(AuthContext);
   return (
-    <Route {...rest}>
-      {authCtx.isUserLoggedIn ? children : <NotLoggedIn />}
-    </Route>
+    <Route {...rest}>{authCtx.isLoggedIn ? children : <NotLoggedIn />}</Route>
   );
 }
 

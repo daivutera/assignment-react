@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+
 function NotLoggedIn() {
   return (
     <>
@@ -8,3 +9,4 @@ function NotLoggedIn() {
     </>
   );
 }
+export default NotLoggedIn;

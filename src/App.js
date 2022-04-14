@@ -18,8 +18,7 @@ function App() {
   function logout() {
     setIsLoggedIn(false);
   }
-  function login(usrName, psw) {
-    console.log('username, pass', usrName, psw);
+  function login() {
     setIsLoggedIn(true);
   }
 
