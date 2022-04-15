@@ -1,0 +1,61 @@
+import { deleteFetch } from '../helper/helper';
+import Button from '../UI/Button';
+import Container from '../UI/Container';
+import scss from './petsItem.module.scss';
+import { Link } from 'react-router-dom';
+import AuthContext from '../store/authContext';
+import { useContext } from 'react';
+
+function CardItem(props) {
+  const formatedDate = new Date(props.dob).toLocaleDateString('lt', {
+    dateStyle: 'long',
+  });
+  async function handleDelete(e) {
+    e.preventDefault();
+    console.log('delete', props.id);
+    console.log('formatedDate', formatedDate);
+    const deleteResult = await deleteFetch('pets', props.id);
+    console.log('deleteResult ===', deleteResult);
+    if (deleteResult.changes === 1) {
+      props.onDelete();
+    }
+  }
+
+  const authCtxValue = useContext(AuthContext);
+
+  return (
+    <Container className={scss.petsCard}>
+      <h1 className={scss.h1css}>{props.title}</h1>
+      <div className={scss.body}>
+        <h3 className={scss.h3css}>{formatedDate}</h3>
+        <h3 className={scss.h3css}>{props.body}</h3>
+      </div>
+      {/* {!props.listType && (<>
+          <Link to={`/logs/${props.id}`}>
+            <Button>View Log</Button>
+          </Link>
+          <Button outline onClick={handleDelete}>
+            Delete
+          </Button>
+        </>)} */}
+
+      {props.listType ? (
+        ''
+      ) : (
+        <>
+          <Link to={`/logs/${props.id}`}>
+            <Button>View Log</Button>
+          </Link>
+          <Button outline onClick={handleDelete}>
+            Delete
+          </Button>
+          <Button onClick={authCtxValue.logout} outline>
+            Logout
+          </Button>
+        </>
+      )}
+    </Container>
+  );
+}
+
+export default CardItem;

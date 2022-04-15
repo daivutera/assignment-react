@@ -11,3 +11,6 @@ html {
 header {
   background-color: rgba(236, 230, 230, 0.2);
 }
+.add {
+  width: 700px !important;
+}

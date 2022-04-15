@@ -23,3 +23,22 @@ img {
   color: rgb(97, 94, 94);
   font-weight: 300;
 }
+@media only screen and (max-width: 600px) {
+  img {
+    max-width: 5rem;
+    margin: 10px 10px 10px 20px;
+  }
+  .pageName {
+    margin-left: 5px;
+  }
+  .flex {
+    flex-direction: column;
+    margin: 0 auto;
+  }
+  .logo {
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    padding-left: 50px;
+  }
+}

@@ -1,7 +1,7 @@
 .form {
   background-color: rgba(236, 230, 230, 0.2);
   width: 500px;
-  margin: 70px auto;
+  margin: 40px auto;
   padding: 20px;
   border-bottom: 12px solid rgba(247, 233, 202, 0.2);
   box-shadow: 5px 5px 10px rgb(235, 230, 230);
@@ -17,4 +17,14 @@ input {
 .fonth1 {
   color: rgb(97, 94, 94);
   font-weight: 300;
+}
+.addInput {
+  height: 150px;
+}
+@media only screen and (max-width: 600px) {
+  .form {
+    width: 300px;
+    margin: 20px auto;
+    padding: 10px;
+  }
 }

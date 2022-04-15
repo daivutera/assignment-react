@@ -1,6 +1,16 @@
 import Form from '../components/Form';
 
 function RegisterPage() {
+  // async function addItem(e) {
+  //   e.preventDefault();
+  //   console.log('delete', props.id);
+  //   const deleteResult = await deleteFetch('pets', props.id);
+  //   console.log('deleteResult ===', deleteResult);
+  //   if (deleteResult.changes === 1) {
+  //     props.onDelete();
+  //   }
+  // }
+
   return (
     <Form
       className='register'

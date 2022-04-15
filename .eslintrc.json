@@ -20,8 +20,13 @@
     "quotes": [2, "single", { "avoidEscape": true }],
     "jsx-quotes": [2, "prefer-single"],
     "no-use-before-define": ["error", { "functions": false, "classes": true }],
-    "comma-dangle": ["error", { "functions": "ignore" }]
-
+    "comma-dangle": [
+      "error",
+      {
+        "objects": "ignore",
+        "functions": "ignore"
+      }
+    ]
     // "react/prop-types": "off"
     // "react/destructuring-assignment": ["enabled", "never"]
   }
