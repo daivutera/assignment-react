@@ -22,6 +22,7 @@ function Form(props) {
   const [password, setPassword] = useState('');
   const [isError, setIsError] = useState(false);
   const [isErrorUi, setIsErrorUi] = useState(false);
+  const [successMsg, setSuccessMsg] = useState(false);
   const initErrors = {
     emailMsg: '',
     passwordMsg: '',
@@ -30,7 +31,7 @@ function Form(props) {
   };
   const initErrorsBack = {};
   const [errorObject, setErrorObject] = useState(initErrors);
-  const [errorObjectBack, setErrorObjectBack] = useState(initErrorsBack);
+  const [respObjectBack, setRespObjectBack] = useState(initErrorsBack);
   const [formValid, setFormValid] = useState(true);
 
   useEffect(() => {
@@ -80,14 +81,17 @@ function Form(props) {
     }
     if (formValid) {
       const answerFromBack = await sendFetch(urlForFetch, newDataObj);
-      console.log('answerFromBack', answerFromBack);
       if (answerFromBack.err) {
         console.log('not connected from back');
         setIsError(true);
-        setErrorObjectBack(answerFromBack.err);
+        setRespObjectBack(answerFromBack.err);
         return;
       }
-      authCtxValue.isLoggedIn = true;
+      setRespObjectBack('Success!');
+      setSuccessMsg(true);
+      if (className === 'login') {
+        authCtxValue.isLoggedIn = true;
+      }
     }
   }
 
@@ -121,9 +125,12 @@ function Form(props) {
       );
       if (answerFromBack.err) {
         setIsError(true);
-        setErrorObjectBack(answerFromBack.err);
+        setRespObjectBack(answerFromBack.err);
         console.log('not connected from back');
+        return;
       }
+      setRespObjectBack('Success!');
+      setSuccessMsg(true);
     }
   }
 
@@ -200,7 +207,10 @@ function Form(props) {
           />
         )}
       </form>
-      {isError && <ErrorContainer>{errorObjectBack}</ErrorContainer>}
+      {isError && <ErrorContainer>{respObjectBack}</ErrorContainer>}
+      {successMsg && (
+        <ErrorContainer green='true'>{respObjectBack}</ErrorContainer>
+      )}
     </Container>
   );
 }
