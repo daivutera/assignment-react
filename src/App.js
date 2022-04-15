@@ -13,7 +13,7 @@ import Header from './components/Header';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   function logout() {
     setIsLoggedIn(false);

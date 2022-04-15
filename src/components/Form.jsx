@@ -2,6 +2,7 @@
 /* eslint-disable object-curly-newline */
 import { React, useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import Container from '../UI/Container';
 import ErrorContainer from '../UI/ErrorContainer';
 import css from './form.module.css';
@@ -33,6 +34,7 @@ function Form(props) {
   const [errorObject, setErrorObject] = useState(initErrors);
   const [respObjectBack, setRespObjectBack] = useState(initErrorsBack);
   const [formValid, setFormValid] = useState(true);
+  const history = useHistory();
 
   useEffect(() => {
     if (className === 'add' && title.length && description.length) {
@@ -90,7 +92,9 @@ function Form(props) {
       setRespObjectBack('Success!');
       setSuccessMsg(true);
       if (className === 'login') {
-        authCtxValue.isLoggedIn = true;
+        authCtxValue.login();
+        console.log(authCtxValue.isLoggedIn);
+        history.push('/home');
       }
     }
   }
