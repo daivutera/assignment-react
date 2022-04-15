@@ -2,7 +2,7 @@ POST https://autumn-delicate-wilderness.glitch.me/v1/auth/register
 Content-Type: application/json
 
 {
-    "email": "daiva@daiva.lt",
+    "email": "daiva111@daiva.lt",
     "password": "daiva"
 }
 
@@ -11,8 +11,8 @@ POST https://autumn-delicate-wilderness.glitch.me/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "daiva@daiva.lt",
-    "password": "daiva"
+    "email": "vytka@vytka.lt",
+    "password": "vytka"
 }
 ###
 
