@@ -89,6 +89,9 @@ function Form(props) {
         setRespObjectBack(answerFromBack.err);
         return;
       }
+      if (className === 'login') {
+        localStorage.setItem('token', answerFromBack.token);
+      }
       setRespObjectBack('Success!');
       setSuccessMsg(true);
       if (className === 'login') {
