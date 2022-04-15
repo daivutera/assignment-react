@@ -14,6 +14,10 @@ input {
   border-radius: 5px;
   border: solid 0.5px rgb(224, 221, 221);
 }
+input:last-of-type {
+  width: 77px;
+  margin: 10px;
+}
 .fonth1 {
   color: rgb(97, 94, 94);
   font-weight: 300;
