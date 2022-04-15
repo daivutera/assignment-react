@@ -1,12 +1,16 @@
+/* eslint-disable react/jsx-closing-bracket-location */
+/* eslint-disable no-undef */
 /* eslint-disable operator-linebreak */
 /* eslint-disable object-curly-newline */
 /* eslint-disable comma-dangle */
-import { React, useState } from 'react';
+import { React, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import Container from '../UI/Container';
 import ErrorContainer from '../UI/ErrorContainer';
 import css from './form.module.css';
-import SubmitContext from './../store/submitContext';
+import { sendFetch, sendFetchToken } from '../helpers/postFetch';
+import AuthContext from '../store/authContext';
+// import SubmitContext from './../store/submitContext';
 
 function Form(props) {
   const { textFirstLine, textSecondLine, errorText, formName, className } =
@@ -18,14 +22,15 @@ function Form(props) {
     formName: PropTypes.node.isRequired,
     className: PropTypes.node.isRequired,
   };
+  const authCtxValue = useContext(AuthContext);
+  // const submitCtxValue = useContext(SubmitContext);
 
- const submitCtxValue = useContext(SubmitContext)
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [newObject, setNewObject] = useState({})
-  const [newObjectAdd, setNewObjectAdd] = useState({})
+  // const [newObject, setNewObject] = useState({});
+  // const [newObjectAdd, setNewObjectAdd] = useState({});
 
   // useEffect(() => {
   //   if (title.length && author.length && body.length) {
@@ -36,37 +41,41 @@ function Form(props) {
   // }, [title, author, body]);
   console.log(title, description, email, password);
 
-  function submitHandlerRegister(event) {
-    event.preventDefault();
-    const newPostObj = {
-      title: title,
-      author: author,
-      body: body,
+  async function submitHandlerLogReg(e) {
+    e.preventDefault();
+    const newDataObj = {
+      email,
+      password,
     };
-    function submitHandlerLogin(event) {
-      event.preventDefault();
-      const newAddObj = {
-        email: email,
-        password: password,
-      };
-      function submitHandlerAdd(event) {
-        event.preventDefault();
-        const newPostObj = {
-          title: title,
-          author: author,
-          body: body,
-        };
-    // console.log('newPostObj ===', newPostObj);
-
-    props.onNewPost(newPostObj);
+    const answerFromBack = await sendFetch('v1/auth/register', newDataObj);
+    if (!answerFromBack) {
+      console.log('not connected from back');
+      return;
+    }
+    authCtxValue.isLoggedIn = true;
+    console.log('connected ');
+  }
+  async function submitHandlerAdd(e) {
+    e.preventDefault();
+    const token = localStorage.getItem('token');
+    console.log('token===', token);
+    const newDataObj = {
+      title,
+      description,
+    };
+    await sendFetchToken('v1/content/skills', newDataObj, token);
   }
 
   return (
     <Container className={`${css.form} ${className}`}>
       <h1 className={css.fonth1}>{formName}</h1>
       <form
-        onSubmit={() => {
-          submitHandler(e);
+        onSubmit={(e) => {
+          if (className === 'add') {
+            submitHandlerAdd(e);
+          } else {
+            submitHandlerLogReg(e);
+          }
         }}>
         <ErrorContainer>{textFirstLine}</ErrorContainer>
         <input
@@ -77,7 +86,7 @@ function Form(props) {
               setEmail(e.target.value);
             }
           }}
-          value={className === 'add' ? 'title' : 'email'}
+          // value={className === 'add' ? 'title' : 'email'}
           type='text'
           placeholder={className === 'add' ? 'Title' : 'Email'}
         />
@@ -91,7 +100,7 @@ function Form(props) {
               setPassword(e.target.value);
             }
           }}
-          value={className === 'add' ? 'description' : 'password'}
+          // value={className === 'add' ? 'description' : 'password'}
           className={className === 'add' ? css.addInput : ''}
           type='text'
           placeholder={className === 'add' ? 'Description' : 'Password'}
