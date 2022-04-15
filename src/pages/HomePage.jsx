@@ -1,5 +1,7 @@
+import CardList from '../components/cardList/CardList';
+
 function HomePage() {
-  return <div>HomePage</div>;
+  return <CardList />;
 }
 
 export default HomePage;

@@ -1,49 +1,54 @@
-import PetsItem from './PetsItem';
-import { useState, useEffect } from 'react';
-import Grid from './../UI/Grid';
-//const urlBackEndPetras = 'https://glittery-dull-snickerdoodle.glitch.me';
+/* eslint-disable consistent-return */
+import { React, useState, useEffect } from 'react';
+import nextId from 'react-id-generator';
+import { getFetchToken } from '../../helpers/postFetch';
+import Container from '../../UI/Container';
+import Grid from '../../UI/Grid';
+import CardItem from './CardItem';
 
-function CardList(props) {
-  // const [petsArray, setPetsArray] = useState([]);
+function CardList() {
+  const [skillsArray, setSkillsArray] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const tokenFromLocalStorage = localStorage.getItem('token');
 
-  // useEffect(() => {
-  //   getPetsArray();
-  // }, []);
+  useEffect(() => {
+    getSkillsArray();
+  }, []);
 
-  // async function getPetsArray() {
-  //   const petsArray = await fetch(`${urlBackEndPetras}/v1/pets/`);
-  //   const petsArrayJson = await petsArray.json();
-  //   if (petsArrayJson.length) {
-  //     console.log(petsArrayJson);
-  //     setPetsArray(petsArrayJson);
-  //     return;
-  //   }
-  //   console.log('klaida');
-  //   return false;
-  // }
+  async function getSkillsArray() {
+    setLoading(true);
+    const skillsArrayFetch = await getFetchToken(
+      'v1/content/skills',
+      `${tokenFromLocalStorage}`
+    );
+    const skillsArrayJson = await skillsArrayFetch.json();
+    if (skillsArrayJson.length) {
+      console.log(skillsArrayJson);
+      setSkillsArray(skillsArrayJson);
+      setLoading(false);
+      return;
+    }
+    console.log('error with getSkillsArray');
+    setLoading(false);
+    return false;
+  }
 
   return (
-    <Grid>
-      {props.items.map((petInfo) => (
-        <PetsItem
-          onDelete={petInfo.onDelete}
-          key={petInfo.id}
-          id={petInfo.id}
-          dob={petInfo.dob}
-          title={
-            props.listType === 'log'
-              ? `Pet status: ${petInfo.status}`
-              : petInfo.name
-          }
-          body={
-            props.listType === 'log'
-              ? `Pet Description: ${petInfo.description}`
-              : petInfo.client_email
-          }
-          listType={props.listType}
-        />
-      ))}
-    </Grid>
+    <Container>
+      {loading === true && <h2>Loading...</h2>}
+      {!loading && !skillsArray.length && (
+        <h2>No any skills in the list yet...</h2>
+      )}
+      <Grid>
+        {skillsArray?.map((skillsData) => (
+          <CardItem
+            key={nextId()}
+            description={skillsData.description}
+            title={skillsData.title}
+          />
+        ))}
+      </Grid>
+    </Container>
   );
 }
 
