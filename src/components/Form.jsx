@@ -4,7 +4,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable object-curly-newline */
 /* eslint-disable comma-dangle */
-import { React, useState, useContext } from 'react';
+import { React, useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Container from '../UI/Container';
 import ErrorContainer from '../UI/ErrorContainer';
@@ -14,12 +14,8 @@ import AuthContext from '../store/authContext';
 // import SubmitContext from './../store/submitContext';
 
 function Form(props) {
-  const { textFirstLine, textSecondLine, errorText, formName, className } =
-    props;
+  const { formName, className } = props;
   Form.propTypes = {
-    textFirstLine: PropTypes.node.isRequired,
-    textSecondLine: PropTypes.node.isRequired,
-    errorText: PropTypes.node.isRequired,
     formName: PropTypes.node.isRequired,
     className: PropTypes.node.isRequired,
   };
@@ -31,29 +27,32 @@ function Form(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isError, setIsError] = useState(false);
-  const [isErrorUI, setIsErrorUI] = useState(false);
+  const [isErrorUi, setIsErrorUi] = useState(false);
   const initErrors = {
-    email,
-    password,
-    title,
-    description,
+    emailMsg: '',
+    passwordMsg: '',
+    titleMsg: '',
+    descriptionMsg: '',
   };
   const initErrorsBack = {};
   const [errorObject, setErrorObject] = useState(initErrors);
   const [errorObjectBack, setErrorObjectBack] = useState(initErrorsBack);
   const [formValid, setFormValid] = useState(true);
 
-  // useEffect(() => {
-  //   if (title.length && author.length && body.length) {
-  //     setFormValid(true);
-  //   } else {
-  //     setFormValid(false);
-  //   }
-  // }, [title, author, body]);
-
-  // if (!isErrorsEmpty) {
-  //   return;
-  // }
+  useEffect(() => {
+    if (className === 'add' && title.length && description.length) {
+      setFormValid(true);
+      setIsErrorUi(false);
+    }
+    if (className !== 'add' && email.length && password.length) {
+      setFormValid(true);
+      setIsErrorUi(false);
+    } else {
+      console.log('ner visko');
+      setFormValid(false);
+      setIsErrorUi(true);
+    }
+  }, [title, description, email, password]);
 
   async function submitHandlerLogReg(e) {
     setFormValid(true);
@@ -67,29 +66,35 @@ function Form(props) {
     if (email.trim() === '') {
       setErrorObject((prevState) => ({
         ...prevState,
-        email: `Email can't be blank`,
+        emailMsg: `Please indicate email correctly!`,
       }));
-      setFormValid(false);
-      setIsErrorUI(true);
+      // setFormValid(false);
+      // setIsErrorUI(true);
     }
 
     if (password.trim() === '') {
       setErrorObject((prevState) => ({
         ...prevState,
-        password: `Password can't be blank`,
+        passwordMsg: `Enter your password!`,
       }));
-      setFormValid(false);
+      // setFormValid(false);
+    }
+    if (!formValid) {
+      return;
     }
 
     const answerFromBack = await sendFetch('v1/auth/register', newDataObj);
     console.log('answerFromBack', answerFromBack);
     if (answerFromBack.err) {
       console.log('not connected from back');
+      // setIsError(true);
+      setErrorObjectBack(answerFromBack.err);
       return;
     }
     authCtxValue.isLoggedIn = true;
     console.log('connected ');
   }
+
   async function submitHandlerAdd(e) {
     setIsError(false);
     setErrorObject('');
@@ -103,17 +108,20 @@ function Form(props) {
     if (title.trim() === '') {
       setErrorObject((prevState) => ({
         ...prevState,
-        title: `Title can't be blank`,
+        titleMsg: `Title can't be blank!`,
       }));
-      setIsErrorUI(true);
-      setFormValid(false);
+      // setIsErrorUI(true);
+      // setFormValid(false);
     }
     if (description.trim() === '') {
       setErrorObject((prevState) => ({
         ...prevState,
-        description: `Description can't be blank`,
+        descriptionMsg: `Description can't be blank!`,
       }));
-      setFormValid(false);
+      // setFormValid(false);
+    }
+    if (!formValid) {
+      return;
     }
 
     const answerFromBack = await sendFetchToken(
@@ -142,17 +150,11 @@ function Form(props) {
             submitHandlerLogReg(e);
           }
         }}>
-        {isErrorUI && (
-          <ErrorContainer>
-            {textFirstLine}
-            {errorObject.title}
-          </ErrorContainer>
+        {className !== 'add' && isErrorUi && !email.length && (
+          <ErrorContainer>{errorObject.emailMsg}</ErrorContainer>
         )}
-        {isErrorUI && (
-          <ErrorContainer>
-            {textFirstLine}
-            {errorObject.email}
-          </ErrorContainer>
+        {className === 'add' && isErrorUi && !title.length && (
+          <ErrorContainer>{errorObject.titleMsg}</ErrorContainer>
         )}
         <input
           onChange={(e) => {
@@ -167,10 +169,13 @@ function Form(props) {
           placeholder={className === 'add' ? 'Title' : 'Email'}
         />
         <br />
-        <ErrorContainer>
-          {textSecondLine}
-          {errorObject.name}
-        </ErrorContainer>
+
+        {className !== 'add' && isErrorUi && !password.length && (
+          <ErrorContainer>{errorObject.passwordMsg}</ErrorContainer>
+        )}
+        {className === 'add' && isErrorUi && !description.length && (
+          <ErrorContainer>{errorObject.descriptionMsg}</ErrorContainer>
+        )}
         <input
           onChange={(e) => {
             if (className === 'add') {
@@ -188,31 +193,26 @@ function Form(props) {
         {className === 'add' && (
           <input
             type='submit'
-            disabled={!formValid ? 'disabled' : ''}
+            disabled={!isErrorUi ? 'disabled' : ''}
             value='Add'
           />
         )}
         {className === 'register' && (
           <input
             type='submit'
-            disabled={!formValid ? 'disabled' : ''}
+            disabled={!isErrorUi ? 'disabled' : ''}
             value='Register'
           />
         )}
         {className === 'login' && (
           <input
             type='submit'
-            disabled={!formValid ? 'disabled' : ''}
+            disabled={!isErrorUi ? 'disabled' : ''}
             value='Login'
           />
         )}
       </form>
-      {isError && (
-        <ErrorContainer>
-          {errorText}
-          {errorObjectBack}
-        </ErrorContainer>
-      )}
+      {isError && <ErrorContainer>{errorObjectBack}</ErrorContainer>}
     </Container>
   );
 }
