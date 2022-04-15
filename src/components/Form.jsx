@@ -1,9 +1,5 @@
-/* eslint-disable quotes */
 /* eslint-disable react/jsx-closing-bracket-location */
-/* eslint-disable no-undef */
-/* eslint-disable operator-linebreak */
 /* eslint-disable object-curly-newline */
-/* eslint-disable comma-dangle */
 import { React, useState, useContext, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Container from '../UI/Container';
@@ -11,7 +7,6 @@ import ErrorContainer from '../UI/ErrorContainer';
 import css from './form.module.css';
 import { sendFetch, sendFetchToken } from '../helpers/postFetch';
 import AuthContext from '../store/authContext';
-// import SubmitContext from './../store/submitContext';
 
 function Form(props) {
   const { formName, className } = props;
@@ -20,7 +15,6 @@ function Form(props) {
     className: PropTypes.node.isRequired,
   };
   const authCtxValue = useContext(AuthContext);
-  // const submitCtxValue = useContext(SubmitContext);
 
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
@@ -48,13 +42,21 @@ function Form(props) {
       setFormValid(true);
       setIsErrorUi(false);
     } else {
-      console.log('ner visko');
       setFormValid(false);
       setIsErrorUi(true);
     }
   }, [title, description, email, password]);
 
   async function submitHandlerLogReg(e) {
+    const logUrlEnd = 'v1/auth/login';
+    const regUrlEnd = 'v1/auth/register';
+    let urlForFetch = '';
+    if (className === 'login') {
+      urlForFetch = logUrlEnd;
+    }
+    if (className === 'register') {
+      urlForFetch = regUrlEnd;
+    }
     setFormValid(true);
     setIsError(false);
     setErrorObject('');
@@ -66,33 +68,27 @@ function Form(props) {
     if (email.trim() === '') {
       setErrorObject((prevState) => ({
         ...prevState,
-        emailMsg: `Please indicate email correctly!`,
+        emailMsg: 'Please indicate email correctly!',
       }));
-      // setFormValid(false);
-      // setIsErrorUI(true);
     }
 
     if (password.trim() === '') {
       setErrorObject((prevState) => ({
         ...prevState,
-        passwordMsg: `Enter your password!`,
+        passwordMsg: 'Enter your password!',
       }));
-      // setFormValid(false);
     }
-    if (!formValid) {
-      return;
+    if (formValid) {
+      const answerFromBack = await sendFetch(urlForFetch, newDataObj);
+      console.log('answerFromBack', answerFromBack);
+      if (answerFromBack.err) {
+        console.log('not connected from back');
+        setIsError(true);
+        setErrorObjectBack(answerFromBack.err);
+        return;
+      }
+      authCtxValue.isLoggedIn = true;
     }
-
-    const answerFromBack = await sendFetch('v1/auth/register', newDataObj);
-    console.log('answerFromBack', answerFromBack);
-    if (answerFromBack.err) {
-      console.log('not connected from back');
-      // setIsError(true);
-      setErrorObjectBack(answerFromBack.err);
-      return;
-    }
-    authCtxValue.isLoggedIn = true;
-    console.log('connected ');
   }
 
   async function submitHandlerAdd(e) {
@@ -108,35 +104,27 @@ function Form(props) {
     if (title.trim() === '') {
       setErrorObject((prevState) => ({
         ...prevState,
-        titleMsg: `Title can't be blank!`,
+        titleMsg: 'Fill in title!',
       }));
-      // setIsErrorUI(true);
-      // setFormValid(false);
     }
     if (description.trim() === '') {
       setErrorObject((prevState) => ({
         ...prevState,
-        descriptionMsg: `Description can't be blank!`,
+        descriptionMsg: 'Write some description!',
       }));
-      // setFormValid(false);
     }
-    if (!formValid) {
-      return;
+    if (formValid) {
+      const answerFromBack = await sendFetchToken(
+        'v1/content/skills',
+        newDataObj,
+        token
+      );
+      if (answerFromBack.err) {
+        setIsError(true);
+        setErrorObjectBack(answerFromBack.err);
+        console.log('not connected from back');
+      }
     }
-
-    const answerFromBack = await sendFetchToken(
-      'v1/content/skills',
-      newDataObj,
-      token
-    );
-    if (answerFromBack.err) {
-      setIsError(true);
-      setErrorObjectBack(answerFromBack.err);
-      console.log('not connected from back');
-      return;
-    }
-    // authCtxValue.isLoggedIn = true;
-    console.log('connected ');
   }
 
   return (
@@ -193,21 +181,21 @@ function Form(props) {
         {className === 'add' && (
           <input
             type='submit'
-            disabled={!isErrorUi ? 'disabled' : ''}
+            // disabled={isErrorUi ? 'disabled' : ''}
             value='Add'
           />
         )}
         {className === 'register' && (
           <input
             type='submit'
-            disabled={!isErrorUi ? 'disabled' : ''}
+            // disabled={formValid ? 'disabled' : ''}
             value='Register'
           />
         )}
         {className === 'login' && (
           <input
             type='submit'
-            disabled={!isErrorUi ? 'disabled' : ''}
+            // disabled={isErrorUi ? 'disabled' : ''}
             value='Login'
           />
         )}
