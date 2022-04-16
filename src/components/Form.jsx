@@ -1,3 +1,5 @@
+/* eslint-disable no-else-return */
+/* eslint-disable operator-linebreak */
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable object-curly-newline */
 import { React, useState, useContext, useEffect } from 'react';
@@ -6,7 +8,7 @@ import { useHistory } from 'react-router-dom';
 import Container from '../UI/Container';
 import ErrorContainer from '../UI/ErrorContainer';
 import css from './form.module.css';
-import { sendFetch, sendFetchToken } from '../helpers/postFetch';
+import { postFetchToken, sendFetch } from '../helpers/postFetch';
 import AuthContext from '../store/authContext';
 
 function Form(props) {
@@ -37,22 +39,31 @@ function Form(props) {
   const history = useHistory();
 
   useEffect(() => {
+    console.log('className', className);
     if (className === 'add' && title.length && description.length) {
       setFormValid(true);
       setIsErrorUi(false);
-    }
-    if (className !== 'add' && email.length && password.length) {
+      console.log('formIsValidadd', formValid);
+      return;
+    } else if (
+      className === 'register' ||
+      (className === 'login' && email.length && password.length)
+    ) {
       setFormValid(true);
       setIsErrorUi(false);
+      console.log('formvalidreglog', formValid);
+      return;
     } else {
       setFormValid(false);
       setIsErrorUi(true);
+      console.log('formvalidelse', formValid);
     }
+    console.log('formvalid', formValid);
   }, [title, description, email, password]);
 
   async function submitHandlerLogReg(e) {
-    const logUrlEnd = 'v1/auth/login';
-    const regUrlEnd = 'v1/auth/register';
+    const logUrlEnd = '/v1/auth/login';
+    const regUrlEnd = '/v1/auth/register';
     let urlForFetch = '';
     if (className === 'login') {
       urlForFetch = logUrlEnd;
@@ -83,6 +94,10 @@ function Form(props) {
     }
     if (formValid) {
       const answerFromBack = await sendFetch(urlForFetch, newDataObj);
+      if (!answerFromBack) {
+        setRespObjectBack('Problems with fetching data');
+        return;
+      }
       if (answerFromBack.err) {
         console.log('not connected from back');
         setIsError(true);
@@ -103,15 +118,17 @@ function Form(props) {
   }
 
   async function submitHandlerAdd(e) {
+    const urlEnd = '/v1/content/skills';
     setIsError(false);
     setErrorObject('');
     e.preventDefault();
     const token = localStorage.getItem('token');
-    console.log('token===', token);
+    console.log('tokenFromAddHandler===', token);
     const newDataObj = {
       title,
       description,
     };
+    console.log('newDataObj===', newDataObj);
     if (title.trim() === '') {
       setErrorObject((prevState) => ({
         ...prevState,
@@ -124,19 +141,21 @@ function Form(props) {
         descriptionMsg: 'Write some description!',
       }));
     }
+    console.log('formValid', formValid);
     if (formValid) {
-      const answerFromBack = await sendFetchToken(
-        'v1/content/skills',
-        newDataObj,
-        token
-      );
+      const answerFromBack = await postFetchToken(urlEnd, newDataObj, token);
+      console.log('answerFromBack===', answerFromBack);
+      if (!answerFromBack) {
+        setRespObjectBack('Problems with fetching data');
+        return;
+      }
       if (answerFromBack.err) {
         setIsError(true);
         setRespObjectBack(answerFromBack.err);
         console.log('not connected from back');
         return;
       }
-      setRespObjectBack('Success!');
+      setRespObjectBack(answerFromBack.msg);
       setSuccessMsg(true);
     }
   }

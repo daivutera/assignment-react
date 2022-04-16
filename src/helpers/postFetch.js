@@ -39,7 +39,7 @@ export async function sendFetch(resource, dataToPost) {
   }
 }
 
-export async function sendFetchToken(resource, dataToPost, token) {
+export async function postFetchToken(resource, dataToPost, token) {
   try {
     const resp = await fetch(`${BASE_URL}${resource}`, {
       method: 'POST',
@@ -50,9 +50,10 @@ export async function sendFetchToken(resource, dataToPost, token) {
       body: JSON.stringify(dataToPost),
     });
     const dataInJs = await resp.json();
+    console.log('successfull post of skill');
     return dataInJs;
   } catch (error) {
-    console.log('sendFetchToken', error);
+    console.log('postFetchToken', error);
     return false;
   }
 }

@@ -20,7 +20,7 @@ https://autumn-delicate-wilderness.glitch.me/v1/content/skills
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE5LCJlbWFpbCI6ImRhaXZhQGRhaXZhLmx0IiwiaWF0IjoxNjUwMDA3Mzk1fQ.GKNV7a_pCKoLbJwaN5Za-UX8nbhtCjSRHmqY1DjSKoE
 ###
 
-POST https://react-test-sejo6.ondigitalocean.app/v1/content/skills
+POST https://autumn-delicate-wilderness.glitch.me/v1/content/skills
 Content-Type: application/json
 Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE5LCJlbWFpbCI6ImRhaXZhQGRhaXZhLmx0IiwiaWF0IjoxNjUwMDA3Mzk1fQ.GKNV7a_pCKoLbJwaN5Za-UX8nbhtCjSRHmqY1DjSKoE
 
