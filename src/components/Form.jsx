@@ -200,27 +200,9 @@ function Form(props) {
           placeholder={className === 'add' ? 'Description' : 'Password'}
         />
         <br />
-        {className === 'add' && (
-          <input
-            type='submit'
-            // disabled={isErrorUi ? 'disabled' : ''}
-            value='Add'
-          />
-        )}
-        {className === 'register' && (
-          <input
-            type='submit'
-            // disabled={formValid ? 'disabled' : ''}
-            value='Register'
-          />
-        )}
-        {className === 'login' && (
-          <input
-            type='submit'
-            // disabled={isErrorUi ? 'disabled' : ''}
-            value='Login'
-          />
-        )}
+        {className === 'add' && <input type='submit' value='Add' />}
+        {className === 'register' && <input type='submit' value='Register' />}
+        {className === 'login' && <input type='submit' value='Login' />}
       </form>
       {isError && <ErrorContainer>{respObjectBack}</ErrorContainer>}
       {successMsg && (
