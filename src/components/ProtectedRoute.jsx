@@ -7,6 +7,7 @@ import AuthContext from '../store/authContext';
 import NotLoggedIn from './NotLoggedIn';
 
 function ProtectedRoute({ children, ...rest }) {
+  console.log('rest', rest);
   ProtectedRoute.propTypes = {
     children: PropTypes.node.isRequired,
     rest: PropTypes.node.isRequired,

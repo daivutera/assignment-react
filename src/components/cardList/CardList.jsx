@@ -5,6 +5,7 @@ import { getFetchToken } from '../../helpers/postFetch';
 import Container from '../../UI/Container';
 import Grid from '../../UI/Grid';
 import CardItem from './CardItem';
+import css from './cardList.module.css';
 
 const urlEnd = 'v1/content/skills';
 
@@ -35,8 +36,8 @@ function CardList() {
   }
 
   return (
-    <Container className='listOfSkills'>
-      {loading === true && <h2>Loading...</h2>}
+    <Container className={css.listOfSkills}>
+      {loading === true && <h2>Loading...It can take up to 120 seconds</h2>}
       {!loading && !skillsArray.length && (
         <h2>No any skills in the list yet...</h2>
       )}

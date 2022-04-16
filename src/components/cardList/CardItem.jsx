@@ -10,8 +10,8 @@ function CardItem(props) {
   };
   return (
     <Container className={css.flex}>
-      <h1>{title}</h1>
-      <h3>{description}</h3>
+      <h1 className={css.homeh1}>{title}</h1>
+      <h3 className={css.homeh3}>{description}</h3>
     </Container>
   );
 }
