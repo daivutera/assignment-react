@@ -1,6 +1,7 @@
-##React Assignment made by Daiva Rajackiene
+## React Assignment made by Daiva Rajackiene
 
-#Dependencies:
+# Dependencies:
+
 "dependencies": {
 "@testing-library/jest-dom": "^5.16.4",
 "@testing-library/react": "^13.0.1",
@@ -13,7 +14,8 @@
 "react-scripts": "5.0.1",
 "web-vitals": "^2.1.4"
 
-#DevDependencies:
+# DevDependencies:
+
 "eslint": "^7.32.0",
 "eslint-config-airbnb": "^19.0.4",
 "eslint-plugin-import": "^2.26.0",
@@ -21,8 +23,8 @@
 "eslint-plugin-react": "^7.29.4",
 "eslint-plugin-react-hooks": "^4.4.0"
 
-##When downloaded, please make sure that you ran npm install before testing.
+## When downloaded, please make sure that you ran npm install before testing.
 
-##create .env file with data in it as indicated in .envSample file (REACT_APP_BASE_URL='your back-end base url without / at the end')
+## create .env file with data in it as indicated in .envSample file (REACT_APP_BASE_URL='your back-end base url without / at the end')
 
-#Backend workds slowly so please be patient and wait for login, register and home pages to fulfill their functions.
+# Backend workds slowly so please be patient and wait for login, register and home pages to fulfill their functions.
