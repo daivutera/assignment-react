@@ -2,7 +2,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 export async function getFetchToken(resource, token) {
   try {
-    const resp = await fetch(`${BASE_URL}${resource}`, {
+    const resp = await fetch(`${BASE_URL}/${resource}`, {
       headers: { Authorization: `Bearer ${token}` },
     });
     const dataInJs = await resp.json();
@@ -12,17 +12,6 @@ export async function getFetchToken(resource, token) {
     return false;
   }
 }
-
-// export async function dataFetch(resource) {
-//   try {
-//     const resp = await fetch(`${BASE_URL}/${resource}`);
-//     const dataInJs = await resp.json();
-//     return dataInJs;
-//   } catch (error) {
-//     console.log('dataFetch error', error);
-//     return false;
-//   }
-// }
 
 export async function sendFetch(resource, dataToPost) {
   try {
@@ -41,6 +30,7 @@ export async function sendFetch(resource, dataToPost) {
 
 export async function postFetchToken(resource, dataToPost, token) {
   try {
+    console.log(`${BASE_URL}${resource}`);
     const resp = await fetch(`${BASE_URL}${resource}`, {
       method: 'POST',
       headers: {

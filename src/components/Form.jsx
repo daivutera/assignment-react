@@ -114,6 +114,8 @@ function Form(props) {
         console.log(authCtxValue.isLoggedIn);
         history.push('/home');
       }
+      setEmail('');
+      setPassword('');
     }
   }
 
@@ -157,6 +159,8 @@ function Form(props) {
       }
       setRespObjectBack(answerFromBack.msg);
       setSuccessMsg(true);
+      setTitle('');
+      setDescription('');
     }
   }
 
@@ -185,7 +189,7 @@ function Form(props) {
               setEmail(e.target.value);
             }
           }}
-          // value={className === 'add' ? 'title' : 'email'}
+          value={className === 'add' ? title : email}
           type='text'
           placeholder={className === 'add' ? 'Title' : 'Email'}
         />
@@ -205,7 +209,7 @@ function Form(props) {
               setPassword(e.target.value);
             }
           }}
-          // value={className === 'add' ? 'description' : 'password'}
+          value={className === 'add' ? description : password}
           className={className === 'add' ? css.addInput : ''}
           type='text'
           placeholder={className === 'add' ? 'Description' : 'Password'}
