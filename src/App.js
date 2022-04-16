@@ -1,24 +1,56 @@
-import logo from './logo.svg';
+/* eslint-disable react/jsx-no-constructed-context-values */
+import { React, useState } from 'react';
 import './App.css';
+import { Route, Switch } from 'react-router-dom';
+import AuthContext from './store/authContext';
+
+import HomePage from './pages/HomePage';
+import RegisterPage from './pages/RegisterPage';
+import LoginPage from './pages/LoginPage';
+import NotFound from './pages/NotFound';
+import AddPage from './pages/AddPage';
+import Header from './components/Header';
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+  function logout() {
+    localStorage.removeItem('token');
+    setIsLoggedIn(false);
+  }
+  function login() {
+    setIsLoggedIn(true);
+  }
+
+  const currentContextValue = { isLoggedIn, logout, login };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <AuthContext.Provider value={currentContextValue}>
+      <div className='App'>
+        <Header />
+        <Switch>
+          <Route path='/' exact>
+            <LoginPage />
+          </Route>
+          <ProtectedRoute path='/home'>
+            <HomePage />
+          </ProtectedRoute>
+          <Route path='/register'>
+            <RegisterPage />
+          </Route>
+          <Route path='/login'>
+            <LoginPage />
+          </Route>
+          <ProtectedRoute path='/add'>
+            <AddPage />
+          </ProtectedRoute>
+          <Route path='*'>
+            <NotFound />
+          </Route>
+        </Switch>
+      </div>
+    </AuthContext.Provider>
   );
 }
 

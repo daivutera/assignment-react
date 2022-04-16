@@ -1,0 +1,30 @@
+POST https://autumn-delicate-wilderness.glitch.me/v1/auth/register
+Content-Type: application/json
+
+{
+    "email": "daiva111@daiva.lt",
+    "password": "daiva"
+}
+
+###
+POST https://autumn-delicate-wilderness.glitch.me/v1/auth/login
+Content-Type: application/json
+
+{
+    "email": "as@as.lt",
+    "password": "as"
+}
+###
+
+https://autumn-delicate-wilderness.glitch.me/v1/content/skills
+Authorization: 
+###
+
+POST https://autumn-delicate-wilderness.glitch.me/v1/content/skills
+Content-Type: application/json
+Authorization: 
+
+{
+    "title": "helloo",
+    "description": "worldd"
+}

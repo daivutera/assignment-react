@@ -1,0 +1,12 @@
+.errContainer {
+  color: red;
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}
+.green {
+  color: rgb(111, 163, 33);
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0;
+}

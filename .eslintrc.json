@@ -9,17 +9,25 @@
     "ecmaFeatures": {
       "jsx": true
     },
-    "ecmaVersion": "latest",
-    "sourceType": "module"
+    "ecmaVersion": "latest"
   },
   "plugins": ["react"],
   "rules": {
     "linebreak-style": ["off", "unix"],
     "no-console": "off",
+    "react/react-in-jsx-scope": "off",
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
     "quotes": [2, "single", { "avoidEscape": true }],
     "jsx-quotes": [2, "prefer-single"],
     "no-use-before-define": ["error", { "functions": false, "classes": true }],
-    "comma-dangle": ["error", { "functions": "ignore" }]
+    "comma-dangle": [
+      "error",
+      {
+        "objects": "ignore",
+        "functions": "ignore"
+      }
+    ]
+    // "react/prop-types": "off"
+    // "react/destructuring-assignment": ["enabled", "never"]
   }
 }

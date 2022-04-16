@@ -1,0 +1,27 @@
+.flex {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: inherit;
+  border-bottom: 12px solid rgba(247, 233, 202, 0.2);
+  align-items: center;
+  padding: 1rem;
+  min-width: 30%;
+  height: auto;
+  margin: 1rem;
+
+  box-shadow: 5px 5px 10px grey;
+  border-radius: 5px;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.homeh1 {
+  font-size: 20px;
+}
+.homeh3 {
+  font-size: 14px;
+  font-weight: 300;
+}

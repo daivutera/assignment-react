@@ -1,0 +1,44 @@
+.flex {
+  display: flex;
+  justify-content: space-between;
+  background-color: inherit;
+  border-bottom: 12px solid rgba(247, 233, 202, 0.2);
+  align-items: center;
+  padding-right: 10rem;
+}
+img {
+  max-width: 6rem;
+  margin: 20px 20px 20px 80px;
+}
+.logo {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  font-size: 20px;
+  color: rgb(179, 126, 14);
+}
+
+.pageName {
+  margin-left: 10px;
+  color: rgb(97, 94, 94);
+  font-weight: 300;
+}
+@media only screen and (max-width: 600px) {
+  img {
+    max-width: 5rem;
+    margin: 10px 10px 10px 20px;
+  }
+  .pageName {
+    margin-left: 5px;
+  }
+  .flex {
+    flex-direction: column;
+    margin: 0 auto;
+  }
+  .logo {
+    flex-direction: column;
+    justify-content: center;
+    margin: 0 auto;
+    padding-left: 50px;
+  }
+}
