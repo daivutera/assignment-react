@@ -13,7 +13,6 @@ function CardList() {
   const [skillsArray, setSkillsArray] = useState([]);
   const [loading, setLoading] = useState(false);
   const tokenFromLocalStorage = localStorage.getItem('token');
-  console.log('tokenFromLocalStorage===', tokenFromLocalStorage);
 
   useEffect(() => {
     getSkillsArray();
@@ -22,15 +21,11 @@ function CardList() {
   async function getSkillsArray() {
     setLoading(true);
     const skillsArrayFetch = await getFetchToken(urlEnd, tokenFromLocalStorage);
-    console.log('skillsArrayFetch', skillsArrayFetch);
-    // const skillsArrayJson = await skillsArrayFetch.json();
     if (skillsArrayFetch.length) {
-      console.log(skillsArrayFetch);
       setSkillsArray(skillsArrayFetch);
       setLoading(false);
       return;
     }
-    console.log('error with getSkillsArray');
     setLoading(false);
     return false;
   }

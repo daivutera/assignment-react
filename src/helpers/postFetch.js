@@ -8,7 +8,6 @@ export async function getFetchToken(resource, token) {
     const dataInJs = await resp.json();
     return dataInJs;
   } catch (error) {
-    console.log('getFetch error', error);
     return false;
   }
 }
@@ -23,14 +22,12 @@ export async function sendFetch(resource, dataToPost) {
     const dataInJs = await resp.json();
     return dataInJs;
   } catch (error) {
-    console.log('sendFetch', error);
     return false;
   }
 }
 
 export async function postFetchToken(resource, dataToPost, token) {
   try {
-    console.log(`${BASE_URL}${resource}`);
     const resp = await fetch(`${BASE_URL}${resource}`, {
       method: 'POST',
       headers: {
@@ -40,10 +37,8 @@ export async function postFetchToken(resource, dataToPost, token) {
       body: JSON.stringify(dataToPost),
     });
     const dataInJs = await resp.json();
-    console.log('successfull post of skill');
     return dataInJs;
   } catch (error) {
-    console.log('postFetchToken', error);
     return false;
   }
 }

@@ -11,18 +11,18 @@ POST https://autumn-delicate-wilderness.glitch.me/v1/auth/login
 Content-Type: application/json
 
 {
-    "email": "vytka@vytka.lt",
-    "password": "vytka"
+    "email": "as@as.lt",
+    "password": "as"
 }
 ###
 
 https://autumn-delicate-wilderness.glitch.me/v1/content/skills
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE5LCJlbWFpbCI6ImRhaXZhQGRhaXZhLmx0IiwiaWF0IjoxNjUwMDA3Mzk1fQ.GKNV7a_pCKoLbJwaN5Za-UX8nbhtCjSRHmqY1DjSKoE
+Authorization: 
 ###
 
 POST https://autumn-delicate-wilderness.glitch.me/v1/content/skills
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTE5LCJlbWFpbCI6ImRhaXZhQGRhaXZhLmx0IiwiaWF0IjoxNjUwMDA3Mzk1fQ.GKNV7a_pCKoLbJwaN5Za-UX8nbhtCjSRHmqY1DjSKoE
+Authorization: 
 
 {
     "title": "helloo",

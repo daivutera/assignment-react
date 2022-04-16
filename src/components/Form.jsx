@@ -1,4 +1,3 @@
-/* eslint-disable no-else-return */
 /* eslint-disable operator-linebreak */
 /* eslint-disable react/jsx-closing-bracket-location */
 /* eslint-disable object-curly-newline */
@@ -39,26 +38,19 @@ function Form(props) {
   const history = useHistory();
 
   useEffect(() => {
-    console.log('className', className);
     if (className === 'add' && title.length && description.length) {
       setFormValid(true);
       setIsErrorUi(false);
-      console.log('formIsValidadd', formValid);
-      return;
     } else if (
       className === 'register' ||
       (className === 'login' && email.length && password.length)
     ) {
       setFormValid(true);
       setIsErrorUi(false);
-      console.log('formvalidreglog', formValid);
-      return;
     } else {
       setFormValid(false);
       setIsErrorUi(true);
-      console.log('formvalidelse', formValid);
     }
-    console.log('formvalid', formValid);
   }, [title, description, email, password]);
 
   async function submitHandlerLogReg(e) {
@@ -99,7 +91,6 @@ function Form(props) {
         return;
       }
       if (answerFromBack.err) {
-        console.log('not connected from back');
         setIsError(true);
         setRespObjectBack(answerFromBack.err);
         return;
@@ -111,7 +102,6 @@ function Form(props) {
       setSuccessMsg(true);
       if (className === 'login') {
         authCtxValue.login();
-        console.log(authCtxValue.isLoggedIn);
         history.push('/home');
       }
       setEmail('');
@@ -125,12 +115,10 @@ function Form(props) {
     setErrorObject('');
     e.preventDefault();
     const token = localStorage.getItem('token');
-    console.log('tokenFromAddHandler===', token);
     const newDataObj = {
       title,
       description,
     };
-    console.log('newDataObj===', newDataObj);
     if (title.trim() === '') {
       setErrorObject((prevState) => ({
         ...prevState,
@@ -143,10 +131,8 @@ function Form(props) {
         descriptionMsg: 'Write some description!',
       }));
     }
-    console.log('formValid', formValid);
     if (formValid) {
       const answerFromBack = await postFetchToken(urlEnd, newDataObj, token);
-      console.log('answerFromBack===', answerFromBack);
       if (!answerFromBack) {
         setRespObjectBack('Problems with fetching data');
         return;
@@ -154,7 +140,6 @@ function Form(props) {
       if (answerFromBack.err) {
         setIsError(true);
         setRespObjectBack(answerFromBack.err);
-        console.log('not connected from back');
         return;
       }
       setRespObjectBack(answerFromBack.msg);
